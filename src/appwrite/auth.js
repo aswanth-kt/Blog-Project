@@ -1,7 +1,7 @@
 import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 
-export class AuthService {
+export class AuthServices {
   client = new Client();
   account;
 
@@ -27,29 +27,26 @@ export class AuthService {
       
     } catch (error) {
       console.error("error in account creation:", error)
-      throw error
     }
   };
 
   async login({ email, password }) {
     try {
 
-      await this.account.createEmailPasswordSession(email, password);
+      return await this.account.createEmailPasswordSession(email, password);
       
     } catch (error) {
       console.error("error in login:", error)
-      throw error
     }
   };
 
-  async currentUser() {
+  async getCurrentUser() {
     try {
 
-      await this.account.get();
+      return await this.account.get();
       
     } catch (error) {
       console.error("error in current user:", error)
-      throw error
     };
 
     return null;
@@ -62,12 +59,11 @@ export class AuthService {
       
     } catch (error) {
       console.error("error in logout:", error)
-      throw error
     }
   }
 
 };
 
-const authService = new AuthService();
+const authServices = new AuthServices();
 
-export default authService;
+export default authServices;
